@@ -70,10 +70,6 @@ export const paper = css`
   position: relative;
   background-color: ${WHITE};
   box-shadow: 0 2px 4px 0 ${hexToRgb(BLACK, '.12')};
-
-  &:hover {
-    box-shadow: 0 4px 8px 0 ${hexToRgb(BLACK, '.12')};
-  }
 `;
 
 export const font = (fontSize: string, lineHeight?: string, fontWeight?: number) => css`

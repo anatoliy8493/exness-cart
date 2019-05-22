@@ -4,7 +4,7 @@ import * as S from './styles';
 import Button from '../Button';
 import { Caption13 } from '../../styles/primitives';
 
-const Product: React.FC = ({ title, price, quantity }: any) => (
+const Product: any = ({ id, title, price, quantity, onAddToCart }: any) => (
   <S.Wrapper>
     <S.Header />
     <S.Body>
@@ -13,7 +13,7 @@ const Product: React.FC = ({ title, price, quantity }: any) => (
         <S.Price>{price} ₽</S.Price>
         <Caption13>{quantity}</Caption13>
       </S.Footer>
-      <Button>Добавить в корзину</Button>
+      <Button onClick={() => onAddToCart(id)}>Add to cart</Button>
     </S.Body>
   </S.Wrapper>
 )

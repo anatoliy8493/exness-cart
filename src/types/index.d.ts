@@ -4,5 +4,6 @@ declare namespace Products {
     price: number;
     quantity: number;
     title: string;
+    onAddToCart?: () => void;
   }
 }

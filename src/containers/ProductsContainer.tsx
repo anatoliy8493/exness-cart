@@ -1,18 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { addToCart } from '../actions/cart';
+
 import ProductsList from '../components/ProductsList';
+
+class ProductsContainer extends React.PureComponent<{ products: any, addToCart: any }> {
+  render() {
+    const { products, addToCart } = this.props;
+
+    return <ProductsList products={products} onAddToCart={addToCart} />;
+  }
+}
 
 const mapStateToProps = (store: any) => ({
   products: store.products,
 })
 
-class ProductsContainer extends React.PureComponent<{ products: any }> {
-  render() {
-    const { products } = this.props;
+const mapDispatchToProps = (dispatch: any) => ({
+  addToCart: (productId: number) => dispatch(addToCart(productId)),
+})
 
-    return <ProductsList products={products} />;
-  }
-}
-
-export default connect(mapStateToProps)(ProductsContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer)

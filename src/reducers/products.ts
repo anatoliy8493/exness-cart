@@ -14,3 +14,5 @@ export default function (state = initialState, action: any) {
     default: return state;
   }
 }
+
+export const getProduct = (state: any, id: number) => state.byId[id];

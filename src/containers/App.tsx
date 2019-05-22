@@ -6,6 +6,9 @@ const App: React.FC = () => {
   return (
     <div>
       <ProductsContainer />
+      <br/>
+      <br/>
+      <hr/>
     </div>
   );
 }

@@ -16,8 +16,10 @@ export const Wrapper = styled.button`
   transition: background-color .2s, box-shadow .2s;
   background-color: ${PUMPKIN};
   box-shadow: 0 1px 0 0 ${ECSTASY}, 0 1px 5px 0 ${hexToRgb(BLACK, '.25')};
+  cursor: pointer;
 
-  &:hover {
-    cursor: pointer;
-  }
+  ${props => props.disabled && `
+    opacity: .5;
+    cursor: default;
+  `}
 `;

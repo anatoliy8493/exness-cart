@@ -18,7 +18,7 @@ export const Header = styled.div`
 
 export const Body = styled.div`
   ${column}
-  padding: 24px;
+  padding: 16px;
 `;
 
 export const Footer = styled.div`
