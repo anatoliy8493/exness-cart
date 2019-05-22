@@ -1,11 +1,11 @@
 import React from 'react';
 
+import ProductsContainer from './ProductsContainer'
+
 const App: React.FC = () => {
   return (
     <div>
-      <header>
-        Exness cart
-      </header>
+      <ProductsContainer />
     </div>
   );
 }
