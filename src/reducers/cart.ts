@@ -15,6 +15,7 @@ const initialState = {
 
 const addedIds = (state: number[] = initialState.addedIds, action: Action) => {
   switch (action.type) {
+    case types.INCREMENT_CART_ITEM:
     case types.ADD_TO_CART: {
       if (state.includes(action.productId)) return state;
 
@@ -29,6 +30,7 @@ const addedIds = (state: number[] = initialState.addedIds, action: Action) => {
 
 const quantityById = (state: { [key: number]: number } = initialState.quantityById, action: Action) => {
   switch (action.type) {
+    case types.INCREMENT_CART_ITEM:
     case types.ADD_TO_CART: {
       const { productId } = action;
 
@@ -36,6 +38,12 @@ const quantityById = (state: { [key: number]: number } = initialState.quantityBy
     }
 
     case types.REMOVE_FROM_CART: return omit(state, action.productId);
+
+    case types.DECREMENT_CART_ITEM: {
+      const { productId } = action;
+
+      return { ...state, [productId]: (state[productId] || 0) - 1 };
+    }
 
     default: return state;
   }
@@ -47,11 +55,10 @@ export const getAddedIds = (state: InterfaceStore['cart']) => state.addedIds;
 
 const cart = (state: InterfaceStore['cart'] = initialState, action: Action) => {
   switch (action.type) {
-    default:
-      return {
-        addedIds: addedIds(state.addedIds, action),
-        quantityById: quantityById(state.quantityById, action)
-      }
+    default: return {
+      addedIds: addedIds(state.addedIds, action),
+      quantityById: quantityById(state.quantityById, action)
+    }
   }
 }
 
