@@ -1,25 +1,26 @@
 import Ink from 'react-ink';
 import { noop } from 'lodash';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import * as S from './styles';
 
-type P = {
+interface Props {
   type?: 'button' | 'reset' | 'submit';
   theme?: string;
   disabled?: boolean;
+  children: ReactNode;
   onClick?: () => void;
 }
 
-export default class extends React.PureComponent<P> {
-  static defaultProps = {
+export default class extends React.PureComponent<Props> {
+  private static defaultProps = {
     theme: 'orange',
     type: 'button',
     onClick: noop,
     disabled: false,
   };
 
-  render() {
+  public render() {
     const { theme, children, type, onClick, disabled } = this.props;
 
     return (

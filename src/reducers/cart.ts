@@ -1,15 +1,9 @@
-import * as types from '../constants';
+import { InterfaceStore } from  '../@types';
+import { ADD_TO_CART } from '../constants';
 
 type Action = {
-  type: string,
-  payload: {
-    productId: never,
-  }
-}
-
-type State = {
-  addedIds: number[];
-  quantityById: number;
+  type: string;
+  productId: number;
 }
 
 const initialState = {
@@ -17,22 +11,21 @@ const initialState = {
   quantityById: {},
 }
 
-const addedIds = (state = initialState.addedIds, action: Action) => {
+const addedIds = (state: number[] = initialState.addedIds, action: Action) => {
   switch (action.type) {
-    case types.ADD_TO_CART:
-      if (state.indexOf(action.payload.productId) !== -1) {
-        return state
-      }
-      return [...state, action.payload.productId];
+    case ADD_TO_CART:
+      if (state.includes(action.productId)) return state;
+
+      return [...state, action.productId];
 
     default: return state;
   }
 }
 
-const quantityById = (state = initialState.quantityById, action: Action) => {
+const quantityById = (state: { [key: number]: number } = initialState.quantityById, action: Action) => {
   switch (action.type) {
-    case types.ADD_TO_CART:
-      const { payload: { productId } } = action;
+    case ADD_TO_CART:
+      const { productId } = action;
 
       return { ...state, [productId]: (state[productId] || 0) + 1 };
 
@@ -40,18 +33,18 @@ const quantityById = (state = initialState.quantityById, action: Action) => {
   }
 }
 
-export const getQuantity = (state: any, productId: number) => state.quantityById[productId] || 0;
+export const getQuantity = (state: InterfaceStore['cart'], productId: number) => state.quantityById[productId] || 0
 
-export const getAddedIds = (state: any) => state.addedIds;
+export const getAddedIds = (state: InterfaceStore['cart']) => state.addedIds;
 
-const cart = (state = initialState, action: Action) => {
+const cart = (state: InterfaceStore['cart'] = initialState, action: Action) => {
   switch (action.type) {
     default:
       return {
         addedIds: addedIds(state.addedIds, action),
-        quantityById: quantityById(state.quantityById, action),
-      };
+        quantityById: quantityById(state.quantityById, action)
+      }
   }
-};
+}
 
 export default cart;

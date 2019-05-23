@@ -1,5 +1,5 @@
-export const ADD_TO_CART: string = 'ADD_TO_CART';
+export const ADD_TO_CART = 'ADD_TO_CART'
 
-export const ASYNC_GET_TICKETS: string = 'ASYNC_GET_TICKETS';
-export const ASYNC_GET_TICKETS_ERROR: string = 'ASYNC_GET_TICKETS_ERROR';
-export const ASYNC_GET_TICKETS_SUCCESS: string = 'ASYNC_GET_TICKETS_SUCCESS';
+export const ASYNC_GET_PRODUCTS: string = 'ASYNC_GET_PRODUCTS';
+export const ASYNC_GET_PRODUCTS_ERROR: string = 'ASYNC_GET_PRODUCTS_ERROR';
+export const ASYNC_GET_PRODUCTS_SUCCESS: string = 'ASYNC_GET_PRODUCTS_SUCCESS';

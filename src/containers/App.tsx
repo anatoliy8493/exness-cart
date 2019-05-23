@@ -1,14 +1,16 @@
 import React from 'react';
 
-import ProductsContainer from './ProductsContainer'
+import CartContainer from './CartContainer';
+import ProductsContainer from './ProductsContainer';
 
 const App: React.FC = () => {
   return (
     <div>
       <ProductsContainer />
       <br/>
-      <br/>
       <hr/>
+      <br/>
+      <CartContainer />
     </div>
   );
 }
