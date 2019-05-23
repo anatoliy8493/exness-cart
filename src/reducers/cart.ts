@@ -1,5 +1,7 @@
+import { omit, filter } from 'lodash';
+
 import { InterfaceStore } from  '../@types';
-import { ADD_TO_CART } from '../constants';
+import * as types from '../constants';
 
 type Action = {
   type: string;
@@ -13,10 +15,13 @@ const initialState = {
 
 const addedIds = (state: number[] = initialState.addedIds, action: Action) => {
   switch (action.type) {
-    case ADD_TO_CART:
+    case types.ADD_TO_CART: {
       if (state.includes(action.productId)) return state;
 
       return [...state, action.productId];
+    }
+
+    case types.REMOVE_FROM_CART: return filter(state, id => id !== action.productId);
 
     default: return state;
   }
@@ -24,10 +29,13 @@ const addedIds = (state: number[] = initialState.addedIds, action: Action) => {
 
 const quantityById = (state: { [key: number]: number } = initialState.quantityById, action: Action) => {
   switch (action.type) {
-    case ADD_TO_CART:
+    case types.ADD_TO_CART: {
       const { productId } = action;
 
       return { ...state, [productId]: (state[productId] || 0) + 1 };
+    }
+
+    case types.REMOVE_FROM_CART: return omit(state, action.productId);
 
     default: return state;
   }

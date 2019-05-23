@@ -6,11 +6,12 @@ import { InterfaceProduct } from '../../@types';
 import { Caption13 } from '../../styles/primitives';
 
 interface Props {
-  products: InterfaceProduct[];
   total: number | string;
+  products: InterfaceProduct[];
+  removeFromCart: (arg: number) => void;
 }
 
-const Cart = ({ products, total }: Props) => {
+const Cart = ({ products, total, removeFromCart }: Props) => {
   const nodes = !isEmpty(products) ? (
     <div>
       <S.TRow header>
@@ -28,6 +29,7 @@ const Cart = ({ products, total }: Props) => {
               <Caption13>{quantity}</Caption13>
               <S.IncrementButton>+</S.IncrementButton>
             </S.TCell>
+            <S.TCell onClick={() => removeFromCart(id)}>Удалить</S.TCell>
           </S.TRow>
         </div>
       ))}

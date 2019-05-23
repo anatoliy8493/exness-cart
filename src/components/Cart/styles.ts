@@ -20,7 +20,7 @@ const buttonCss = css`
 
 export const TRow = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 100px;
   box-shadow: 0 1px 1px 0 ${hexToRgb(BLACK, '.24')};
 
   ${(props: { header?: boolean }) => props.header && `
