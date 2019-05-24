@@ -8,8 +8,8 @@ import { InterfaceProduct, InterfaceStore } from '../@types';
 import { removeFromCart, incrementCartItemQuantity, decrementCartItemQuantity } from '../actions/cart';
 
 interface Props {
-  products: InterfaceProduct[];
   total: number | string;
+  products: InterfaceProduct[];
   removeFromCart: (arg: number) => void;
   incrementCartItemQuantity: (arg: number) => void;
   decrementCartItemQuantity: (arg: number) => void;

@@ -1,16 +1,19 @@
 import React from 'react';
+import { get, map } from 'lodash';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { addToCart } from '../actions/cart';
+import { randomIntFromInterval } from '../utils';
 import { asyncGetProducts } from '../actions/products';
-import { ProductItem, ProductsList } from '../components';
 import { getVisibleProducts } from '../reducers/products';
 import { InterfaceProduct, InterfaceStore } from '../@types';
+import { addToCart, multipleAddToCart } from '../actions/cart';
+import { Button, ProductItem, ProductsList } from '../components';
 
 interface OwnProps {
   products: InterfaceProduct[];
   addToCart: (arg: number) => void;
+  multipleAddToCart: (arg: number[]) => void;
 }
 
 interface DispatchedProps {
@@ -23,18 +26,25 @@ class ProductsContainer extends React.PureComponent<OwnProps & DispatchedProps> 
   }
 
   render() {
-    const { products, addToCart } = this.props;
+    const { products, addToCart, multipleAddToCart } = this.props;
+
+    const productsIdsList: number[] = map(products, (product: InterfaceProduct) => product.id);
+    const randomProductId: number = get(products[randomIntFromInterval(0, products.length - 1)], 'id');
 
     return (
-      <ProductsList>
-        {products.map((product: InterfaceProduct) =>
-          <ProductItem
-            key={product.id}
-            product={product}
-            onAddToCartClick={() => addToCart(product.id)}
-          />
-        )}
-      </ProductsList>
+      <React.Fragment>
+        <ProductsList>
+          {products.map((product: InterfaceProduct) =>
+            <ProductItem
+              key={product.id}
+              product={product}
+              onAddToCartClick={() => addToCart(product.id)}
+            />
+          )}
+        </ProductsList>
+        <Button onClick={() => multipleAddToCart(productsIdsList)}>add each one</Button>
+        <Button onClick={() => addToCart(randomProductId)}>add random one</Button>
+      </React.Fragment>
     );
   }
 }
@@ -46,6 +56,7 @@ const mapStateToProps = (state: InterfaceStore) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   addToCart: (productId: number) => dispatch(addToCart(productId)),
   asyncGetProducts: () => dispatch(asyncGetProducts()),
+  multipleAddToCart: (productsIds: number[]) => dispatch(multipleAddToCart(productsIds)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);
