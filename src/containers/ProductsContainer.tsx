@@ -3,11 +3,10 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { addToCart } from '../actions/cart';
-import { InterfaceProduct, InterfaceStore } from '../@types';
-import ProductItem from '../components/ProductItem';
-import ProductsList from '../components/ProductsList';
 import { asyncGetProducts } from '../actions/products';
+import { ProductItem, ProductsList } from '../components';
 import { getVisibleProducts } from '../reducers/products';
+import { InterfaceProduct, InterfaceStore } from '../@types';
 
 interface OwnProps {
   products: InterfaceProduct[];

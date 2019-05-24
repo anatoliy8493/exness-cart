@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { Button } from '../';
 import * as S from './styles';
-import Button from '../Button';
 import { Caption13 } from '../../styles/primitives';
 
 import { InterfaceProduct } from '../../@types';

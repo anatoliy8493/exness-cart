@@ -2,17 +2,17 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import Cart from '../components/Cart';
+import { Cart } from '../components';
 import { getTotal, getCartProducts } from '../reducers';
 import { InterfaceProduct, InterfaceStore } from '../@types';
-import { removeFromCart, incrementCartItem, decrementCartItem } from '../actions/cart';
+import { removeFromCart, incrementCartItemQuantity, decrementCartItemQuantity } from '../actions/cart';
 
 interface Props {
   products: InterfaceProduct[];
   total: number | string;
   removeFromCart: (arg: number) => void;
-  incrementCartItem: (arg: number) => void;
-  decrementCartItem: (arg: number) => void;
+  incrementCartItemQuantity: (arg: number) => void;
+  decrementCartItemQuantity: (arg: number) => void;
 }
 
 const CartContainer = (props: Props) => <Cart {...props} />;
@@ -24,8 +24,8 @@ const mapStateToProps = (state: InterfaceStore) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   removeFromCart: (productId: number) => dispatch(removeFromCart(productId)),
-  incrementCartItem: (productId: number) => dispatch(incrementCartItem(productId)),
-  decrementCartItem: (productId: number) => dispatch(decrementCartItem(productId)),
+  incrementCartItemQuantity: (productId: number) => dispatch(incrementCartItemQuantity(productId)),
+  decrementCartItemQuantity: (productId: number) => dispatch(decrementCartItemQuantity(productId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartContainer);

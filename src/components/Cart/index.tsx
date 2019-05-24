@@ -2,6 +2,8 @@ import React from 'react';
 import { map, isEmpty } from 'lodash';
 
 import * as S from './styles';
+import { CartIcon } from '../icons';
+import { BLACK } from '../../styles/colors';
 import { InterfaceProduct } from '../../@types';
 import { Caption13 } from '../../styles/primitives';
 
@@ -9,11 +11,11 @@ interface Props {
   total: number | string;
   products: InterfaceProduct[];
   removeFromCart: (arg: number) => void;
-  incrementCartItem: (arg: number) => void;
-  decrementCartItem: (arg: number) => void;
+  incrementCartItemQuantity: (arg: number) => void;
+  decrementCartItemQuantity: (arg: number) => void;
 }
 
-const Cart = ({ products, total, removeFromCart, incrementCartItem, decrementCartItem }: Props) => {
+const Cart = ({ products, total, removeFromCart, incrementCartItemQuantity, decrementCartItemQuantity }: Props) => {
   const nodes = !isEmpty(products) ? (
     <div>
       <S.TRow header>
@@ -23,7 +25,7 @@ const Cart = ({ products, total, removeFromCart, incrementCartItem, decrementCar
       </S.TRow>
       {map(products, ({ id, title, price, quantity }: InterfaceProduct) => {
         const isLastItem = quantity === 1;
-        const clickHandler = isLastItem ? removeFromCart : decrementCartItem;
+        const clickHandler = isLastItem ? removeFromCart : decrementCartItemQuantity;
 
         return (
           <S.TRow key={id}>
@@ -32,9 +34,13 @@ const Cart = ({ products, total, removeFromCart, incrementCartItem, decrementCar
             <S.TCell>
               <S.DecrementButton onClick={() => clickHandler(id)}>-</S.DecrementButton>
               <Caption13>{quantity}</Caption13>
-              <S.IncrementButton onClick={() => incrementCartItem(id)}>+</S.IncrementButton>
+              <S.IncrementButton onClick={() => incrementCartItemQuantity(id)}>+</S.IncrementButton>
             </S.TCell>
-            <S.TCell onClick={() => removeFromCart(id)}>Удалить</S.TCell>
+            <S.TCell>
+              <S.CartIconWrapper onClick={() => removeFromCart(id)}>
+                <CartIcon style={{ width: '16px', height: '16px', color: BLACK }} />
+              </S.CartIconWrapper>
+            </S.TCell>
           </S.TRow>
         );
       })}

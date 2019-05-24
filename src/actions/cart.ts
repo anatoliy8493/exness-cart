@@ -5,17 +5,17 @@ export const addToCart = (productId: number) => ({
   productId,
 });
 
-export const incrementCartItem = (productId: number) => ({
-  type: types.INCREMENT_CART_ITEM,
-  productId,
-});
-
-export const decrementCartItem = (productId: number) => ({
-  type: types.DECREMENT_CART_ITEM,
-  productId,
-});
-
 export const removeFromCart = (productId: number) => ({
   type: types.REMOVE_FROM_CART,
+  productId,
+});
+
+export const incrementCartItemQuantity = (productId: number) => ({
+  type: types.INCREMENT_CART_ITEM_QUANTITY,
+  productId,
+});
+
+export const decrementCartItemQuantity = (productId: number) => ({
+  type: types.DECREMENT_CART_ITEM_QUANTITY,
   productId,
 });

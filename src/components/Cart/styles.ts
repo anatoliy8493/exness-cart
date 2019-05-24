@@ -48,3 +48,16 @@ export const DecrementButton = styled.div`
   ${buttonCss}
   margin-right: 8px;
 `;
+
+export const CartIconWrapper = styled.div`
+  ${row}
+  ${flexAlign('center')}
+  ${round('24px')}
+  padding: 8px;
+  transition: background-color .2s;
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${hexToRgb(LOCHMARA, '.12')};
+  }
+`;
