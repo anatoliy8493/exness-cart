@@ -42,8 +42,11 @@ class ProductsContainer extends React.PureComponent<OwnProps & DispatchedProps> 
             />
           )}
         </ProductsList>
+        <br/>
         <Button onClick={() => multipleAddToCart(productsIdsList)}>add each one</Button>
+        &nbsp;
         <Button onClick={() => addToCart(randomProductId)}>add random one</Button>
+        <br/>
       </React.Fragment>
     );
   }

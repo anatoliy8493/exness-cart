@@ -8,6 +8,8 @@ import rootSaga from './sagas';
 import App from './containers/App';
 import rootReducer from './reducers';
 
+import 'normalize.css';
+
 const sagaMiddleware = createSagaMiddleware();
 
 declare global {

@@ -5,7 +5,7 @@ import { row, flexAlign, round } from '../../styles/mixins';
 import { BLACK, LOCHMARA } from '../../styles/colors';
 
 const buttonCss = css`
-  ${round('12px')}
+  ${round('24px')}
   ${row}
   ${flexAlign('center')}
   padding: 8px;
@@ -52,7 +52,7 @@ export const DecrementButton = styled.div`
 export const CartIconWrapper = styled.div`
   ${row}
   ${flexAlign('center')}
-  ${round('24px')}
+  ${round('32px')}
   padding: 8px;
   transition: background-color .2s;
 
