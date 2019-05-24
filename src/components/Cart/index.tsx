@@ -24,7 +24,7 @@ const Cart = ({ products, total, removeFromCart, incrementCartItemQuantity, decr
         <S.TCell>Quantity</S.TCell>
       </S.TRow>
       {map(products, ({ id, title, price, quantity }: InterfaceProduct) => {
-        const isLastItem = quantity === 1;
+        const isLastItem = quantity <= 1;
         const clickHandler = isLastItem ? removeFromCart : decrementCartItemQuantity;
 
         return (

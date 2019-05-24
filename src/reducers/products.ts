@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
-import { InterfaceStore } from  '../@types';
+import { InterfaceStore, InterfaceProduct } from  '../@types';
 import { ASYNC_GET_PRODUCTS_SUCCESS, ADD_TO_CART } from '../constants';
 
 type Action = {
   type: string;
-  productId: number;
+  productId?: number;
+  products: InterfaceProduct[];
 }
 
 const products = (state: any, action: Action) => {
@@ -16,12 +17,12 @@ const products = (state: any, action: Action) => {
   }
 }
 
-const byId = (state: any = {}, action: any) => {
+const byId = (state: any = {}, action: Action) => {
   switch (action.type) {
     case ASYNC_GET_PRODUCTS_SUCCESS:
       return {
         ...state,
-        ...action.products.reduce((obj: any, product: any) => {
+        ...action.products.reduce((obj: any, product: InterfaceProduct) => {
           obj[product.id] = product;
 
           return obj;
@@ -39,7 +40,7 @@ const byId = (state: any = {}, action: any) => {
 
 const visibleIds = (state = [], action: any) => {
   switch (action.type) {
-    case ASYNC_GET_PRODUCTS_SUCCESS: return action.products.map((product: any) => product.id);
+    case ASYNC_GET_PRODUCTS_SUCCESS: return action.products.map((product: InterfaceProduct) => product.id);
 
     default: return state;
   }

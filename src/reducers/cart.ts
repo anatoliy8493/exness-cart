@@ -1,4 +1,4 @@
-import { omit, filter } from 'lodash';
+import { each, omit, filter, union, clone } from 'lodash';
 
 import * as types from '../constants';
 import { InterfaceStore } from  '../@types';
@@ -6,6 +6,7 @@ import { InterfaceStore } from  '../@types';
 type Action = {
   type: string;
   productId: number;
+  productsIds?: number[];
 }
 
 const initialState = {
@@ -13,7 +14,7 @@ const initialState = {
   quantityById: {},
 }
 
-const addedIds = (state: number[] = initialState.addedIds, action: Action) => {
+const addedIds = (state: number[] = initialState.addedIds, action: any) => {
   switch (action.type) {
     case types.INCREMENT_CART_ITEM_QUANTITY:
     case types.ADD_TO_CART: {
@@ -23,6 +24,8 @@ const addedIds = (state: number[] = initialState.addedIds, action: Action) => {
     }
 
     case types.REMOVE_FROM_CART: return filter(state, id => id !== action.productId);
+
+    case types.MULTIPLE_ADD_TO_CART: return union(state, action.productsIds);
 
     default: return state;
   }
@@ -44,6 +47,18 @@ const quantityById = (state: { [key: number]: number } = initialState.quantityBy
 
       return { ...state, [productId]: (state[productId] || 0) - 1 };
     }
+
+    case types.MULTIPLE_ADD_TO_CART: {
+      const { productsIds } = action;
+
+      const newState = clone(state);
+
+      each(productsIds, (productId: number) => {
+        newState[productId] = (newState[productId] || 0) + 1;
+      });
+
+      return newState;
+    };
 
     default: return state;
   }

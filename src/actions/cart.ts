@@ -5,6 +5,11 @@ export const addToCart = (productId: number) => ({
   productId,
 });
 
+export const multipleAddToCart = (productsIds: number[]) => ({
+  type: types.MULTIPLE_ADD_TO_CART,
+  productsIds,
+});
+
 export const removeFromCart = (productId: number) => ({
   type: types.REMOVE_FROM_CART,
   productId,

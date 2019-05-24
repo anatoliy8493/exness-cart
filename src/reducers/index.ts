@@ -25,6 +25,5 @@ export const getTotal = (state: InterfaceStore) =>
   getAddedIds(state)
     .reduce((total: number, id: number) =>
       total + getProduct(state, id).price * getQuantity(state, id),
-      0
-    )
-    .toFixed(2);
+      0,
+    );
