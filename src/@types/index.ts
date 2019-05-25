@@ -2,6 +2,9 @@ export interface InterfaceProduct {
   id: number
   title: string;
   price: number;
+}
+
+export interface InterfaceCartProduct extends InterfaceProduct {
   quantity: number;
 }
 

@@ -7,6 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import rootSaga from './sagas';
 import App from './containers/App';
 import rootReducer from './reducers';
+import { reHydrateStore, localStorageMiddleware } from './middleware';
 
 import 'normalize.css';
 
@@ -19,9 +20,14 @@ declare global {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
-  applyMiddleware(sagaMiddleware),
-));
+const store = createStore(
+  rootReducer,
+  reHydrateStore(),
+  composeEnhancers(applyMiddleware(
+    sagaMiddleware,
+    localStorageMiddleware,
+  ))
+);
 
 sagaMiddleware.run(rootSaga);
 

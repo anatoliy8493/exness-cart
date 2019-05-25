@@ -51,13 +51,13 @@ const quantityById = (state: { [key: number]: number } = initialState.quantityBy
     case types.MULTIPLE_ADD_TO_CART: {
       const { productsIds } = action;
 
-      const newState = clone(state);
+      const clonedState = clone(state);
 
       each(productsIds, (productId: number) => {
-        newState[productId] = (newState[productId] || 0) + 1;
+        clonedState[productId] = (clonedState[productId] || 0) + 1;
       });
 
-      return newState;
+      return clonedState;
     };
 
     default: return state;

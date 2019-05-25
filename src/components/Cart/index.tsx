@@ -4,13 +4,13 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import * as S from './styles';
 import { BLACK } from '../../styles/colors';
-import { InterfaceProduct } from '../../@types';
+import { InterfaceCartProduct } from '../../@types';
 import { Caption13 } from '../../styles/primitives';
 import { CartIcon, SortIcon, ArrowDownwardIcon, ArrowUpwardIcon } from '../icons';
 
 interface Props {
   total: number | string;
-  products: InterfaceProduct[];
+  products: InterfaceCartProduct[];
   removeFromCart: (arg: number) => void;
   changeSortOrder: (column: string) => void;
   incrementCartItemQuantity: (arg: number) => void;
@@ -53,9 +53,7 @@ export default class Cart extends React.PureComponent<Props> {
     } = this.props;
 
     const mappedTableHeaderList = map(TABLE_HEADER_LIST, item => {
-      if (item.name === sort.column) {
-        return { ...item, ...sort };
-      }
+      if (item.name === sort.column) return { ...item, ...sort };
 
       return item;
     })
@@ -73,7 +71,7 @@ export default class Cart extends React.PureComponent<Props> {
           ))}
         </S.TRow>
         <TransitionGroup className="table">
-          {map(products, ({ id, title, price, quantity }: InterfaceProduct) => {
+          {map(products, ({ id, title, price, quantity }: InterfaceCartProduct) => {
             const isLastItem = quantity <= 1;
             const clickHandler = isLastItem ? removeFromCart : decrementCartItemQuantity;
 

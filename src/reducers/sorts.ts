@@ -20,13 +20,13 @@ const initialState = {
 const sorts = (state: InterfaceStore['sorts'] = initialState, action: Action) => {
   switch (action.type) {
     case types.CHANGE_SORT_ORDER: {
-      let newSortOrder = 'ascending';
-
       const { payload: { name, column } } = action;
 
       if (state[name].column !== column) {
-        return { ...state, [name]: { column, sortOrder: 'ascending' } };
+        return { ...state, [name]: { column, sortOrder: 'descending' } };
       }
+
+      let newSortOrder: string;
 
       switch (state[name].sortOrder) {
         case 'ascending':
@@ -38,7 +38,7 @@ const sorts = (state: InterfaceStore['sorts'] = initialState, action: Action) =>
           break;
 
         default:
-          newSortOrder = 'ascending';
+          newSortOrder = 'descending';
           break;
       }
 
