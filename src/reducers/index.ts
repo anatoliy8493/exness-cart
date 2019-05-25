@@ -15,9 +15,10 @@ const rootReducer = combineReducers({
 export default rootReducer;
 
 const getAddedIds = (state: InterfaceStore) => fromCart.getAddedIds(state.cart);
-const getCartSorts = (state: InterfaceStore) => fromCartSorts.getCartSorts(state.cartSorts);
 const getQuantity = (state: InterfaceStore, id: number) => fromCart.getQuantity(state.cart, id);
 const getProduct = (state: InterfaceStore, id: number) => fromProducts.getProduct(state.products, id);
+
+export const getCartSorts = (state: InterfaceStore) => fromCartSorts.getCartSorts(state.cartSorts);
 
 export const getCartProducts = (state: InterfaceStore) => {
   const sorts = getCartSorts(state);
