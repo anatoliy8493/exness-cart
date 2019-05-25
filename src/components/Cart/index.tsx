@@ -12,10 +12,10 @@ interface Props {
   total: number | string;
   products: InterfaceProduct[];
   removeFromCart: (arg: number) => void;
-  changeSortOrder: (name: string) => void;
-  cartSorts: { name: string, sortOrder: string }
+  changeSortOrder: (column: string) => void;
   incrementCartItemQuantity: (arg: number) => void;
   decrementCartItemQuantity: (arg: number) => void;
+  sort: { name: string, sortOrder: string, column: string };
 }
 
 interface TableHeaderItem {
@@ -43,9 +43,9 @@ export default class Cart extends React.PureComponent<Props> {
 
   render() {
     const {
+      sort,
       total,
       products,
-      cartSorts,
       removeFromCart,
       changeSortOrder,
       incrementCartItemQuantity,
@@ -53,8 +53,8 @@ export default class Cart extends React.PureComponent<Props> {
     } = this.props;
 
     const mappedTableHeaderList = map(TABLE_HEADER_LIST, item => {
-      if (item.name === cartSorts.name) {
-        return { ...item, ...cartSorts };
+      if (item.name === sort.column) {
+        return { ...item, ...sort };
       }
 
       return item;
@@ -109,7 +109,7 @@ export default class Cart extends React.PureComponent<Props> {
     return (
       <div>
         <div>{nodes}</div>
-        <p>Total: {total} ₽</p>
+        <S.Total>Total: {total} ₽</S.Total>
       </div>
     )
   }

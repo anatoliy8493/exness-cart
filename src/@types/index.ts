@@ -14,8 +14,10 @@ export interface InterfaceStore {
     byId: { [key: number]: InterfaceProduct };
     visibleIds: number[];
   };
-  cartSorts: {
-    name: string | null;
-    sortOrder: string | null;
+  sorts: {
+    [key: string]: {
+      column: string | null;
+      sortOrder: string | null;
+    };
   };
 }

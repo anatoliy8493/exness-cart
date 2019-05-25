@@ -3,9 +3,9 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { Cart } from '../components';
-import { changeSortOrder } from '../actions/cartSorts';
+import { changeSortOrder } from '../actions/sorts';
 import { InterfaceProduct, InterfaceStore } from '../@types';
-import { getTotal, getCartProducts, getCartSorts } from '../reducers';
+import { getTotal, getSortedCartProducts, getCartSort } from '../reducers';
 import {
   removeFromCart,
   incrementCartItemQuantity,
@@ -16,23 +16,23 @@ interface Props {
   total: number | string;
   products: InterfaceProduct[];
   removeFromCart: (arg: number) => void;
-  changeSortOrder: (name: string) => void;
-  cartSorts: { name: string, sortOrder: string }
+  changeSortOrder: (column: string) => void;
   incrementCartItemQuantity: (arg: number) => void;
   decrementCartItemQuantity: (arg: number) => void;
+  sort: { name: string, sortOrder: string, column: string };
 }
 
 const CartContainer = (props: Props) => <Cart {...props} />;
 
 const mapStateToProps = (state: InterfaceStore) => ({
   total: getTotal(state),
-  products: getCartProducts(state),
-  cartSorts: getCartSorts(state),
+  sort: getCartSort(state),
+  products: getSortedCartProducts(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  changeSortOrder: (name: string) => dispatch(changeSortOrder(name)),
   removeFromCart: (productId: number) => dispatch(removeFromCart(productId)),
+  changeSortOrder: (column: string) => dispatch(changeSortOrder('cart', column)),
   incrementCartItemQuantity: (productId: number) => dispatch(incrementCartItemQuantity(productId)),
   decrementCartItemQuantity: (productId: number) => dispatch(decrementCartItemQuantity(productId)),
 });

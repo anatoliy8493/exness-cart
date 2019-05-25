@@ -81,6 +81,11 @@ export const DecrementButton = styled.div`
   margin-right: 8px;
 `;
 
+export const Total = styled.div`
+  margin-top: 16px;
+  font-weight: 700;
+`;
+
 export const CartIconWrapper = styled.div`
   ${row}
   ${flexAlign('center')}

@@ -12,7 +12,7 @@ import {
   container,
 } from './mixins';
 
-export const StyledPage = styled.div`
+export const Page = styled.div`
   ${container}
   flex: 1;
   padding-top: 32px;

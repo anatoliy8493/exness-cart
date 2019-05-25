@@ -1,18 +1,18 @@
 import React from 'react';
 
+import * as S from '../styles/primitives';
 import CartContainer from './CartContainer';
-import { StyledPage } from '../styles/primitives';
 import ProductsContainer from './ProductsContainer';
 
 const App: React.FC = () => {
   return (
-    <StyledPage>
+    <S.Page>
       <ProductsContainer />
       <br/>
       <hr/>
       <br/>
       <CartContainer />
-    </StyledPage>
+    </S.Page>
   );
 }
 

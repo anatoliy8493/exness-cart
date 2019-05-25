@@ -36,8 +36,8 @@ class ProductsContainer extends React.PureComponent<OwnProps & DispatchedProps> 
         <ProductsList>
           {products.map((product: InterfaceProduct) =>
             <ProductItem
+              {...product}
               key={product.id}
-              product={product}
               onAddToCartClick={() => addToCart(product.id)}
             />
           )}
@@ -57,8 +57,8 @@ const mapStateToProps = (state: InterfaceStore) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addToCart: (productId: number) => dispatch(addToCart(productId)),
   asyncGetProducts: () => dispatch(asyncGetProducts()),
+  addToCart: (productId: number) => dispatch(addToCart(productId)),
   multipleAddToCart: (productsIds: number[]) => dispatch(multipleAddToCart(productsIds)),
 });
 

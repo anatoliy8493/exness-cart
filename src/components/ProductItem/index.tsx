@@ -6,26 +6,25 @@ import { Caption13 } from '../../styles/primitives';
 
 import { InterfaceProduct } from '../../@types';
 
-interface Props {
-  product: InterfaceProduct;
+interface Props extends InterfaceProduct {
   onAddToCartClick: () => void;
 }
 
-const ProductItem = ({ product, onAddToCartClick }: Props) => {
+const ProductItem = ({ title, price, quantity, onAddToCartClick }: Props) => {
   return (
     <S.Wrapper>
       <S.Header />
       <S.Body>
-        <S.Title>{product.title}</S.Title>
+        <S.Title>{title}</S.Title>
         <S.Footer>
-          <S.Price>{product.price} ₽</S.Price>
-          <Caption13>{product.quantity}</Caption13>
+          <S.Price>{price} ₽</S.Price>
+          <Caption13>{quantity}</Caption13>
         </S.Footer>
         <Button
           onClick={onAddToCartClick}
-          disabled={product.quantity <= 0}
+          disabled={quantity <= 0}
         >
-          {product.quantity > 0 ? 'Add to cart' : 'Sold out'}
+          {quantity > 0 ? 'Add to cart' : 'Sold out'}
         </Button>
       </S.Body>
     </S.Wrapper>
