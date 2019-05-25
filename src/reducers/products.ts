@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { InterfaceStore, InterfaceProduct } from  '../@types';
+import { InterfaceProduct } from  '../@types';
 import { ASYNC_GET_PRODUCTS_SUCCESS, ADD_TO_CART } from '../constants';
 
 type Action = {

@@ -13,5 +13,9 @@ export interface InterfaceStore {
   products: {
     byId: { [key: number]: InterfaceProduct };
     visibleIds: number[];
-  }
+  };
+  cartSorts: {
+    name: string | null;
+    sortOrder: string | null;
+  };
 }

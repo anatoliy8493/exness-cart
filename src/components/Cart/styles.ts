@@ -31,12 +31,44 @@ export const TRow = styled.div`
       inset -1px 0 0 0 ${BLACK},
       inset 1px 0px 0 0 ${BLACK};
   `}
+
+  &.table-item-enter {
+    opacity: 0;
+  }
+
+  &.table-item-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+
+  &.table-item-exit {
+    opacity: 1;
+  }
+
+  &.table-item-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+  }
 `;
 
 export const TCell = styled.div`
   ${row}
   ${flexAlign('flex-start', 'center')}
   padding: 8px 12px;
+  transition: background-color .2s;
+
+  ${(props: { header?: boolean }) => props.header && `
+    &:hover {
+      cursor: pointer;
+      background-color: ${hexToRgb(LOCHMARA, '.32')};
+    }
+  `}
+`;
+
+export const TCellInner = styled.div`
+  ${row}
+  ${flexAlign('space-between', 'center')}
+  width: 100%;
 `;
 
 export const IncrementButton = styled.div`

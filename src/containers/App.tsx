@@ -1,17 +1,18 @@
 import React from 'react';
 
 import CartContainer from './CartContainer';
+import { StyledPage } from '../styles/primitives';
 import ProductsContainer from './ProductsContainer';
 
 const App: React.FC = () => {
   return (
-    <div>
+    <StyledPage>
       <ProductsContainer />
       <br/>
       <hr/>
       <br/>
       <CartContainer />
-    </div>
+    </StyledPage>
   );
 }
 

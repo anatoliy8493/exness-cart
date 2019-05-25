@@ -1,7 +1,6 @@
 import { put, all, call } from 'redux-saga/effects';
 
 import * as api from '../api';
-import * as cartActions from '../actions/cart';
 import * as productsActions from '../actions/products';
 
 export function* fetchProducts() {
@@ -16,22 +15,8 @@ export function* fetchProducts() {
   }
 }
 
-export function* fetchCartItems() {
-  // try {
-  //   const data = yield call(api.fetchTickets);
-
-  //   if (data.ok) {
-  //     yield put(cartActions.fetchTicketsSuccess(data));
-  //   }
-  // } catch (error) {
-  //   yield put(cartActions.fetchTicketsError(error));
-  // }
-  yield 1;
-}
-
 export default function* rootSaga() {
   yield all([
     fetchProducts(),
-    fetchCartItems(),
   ]);
 }

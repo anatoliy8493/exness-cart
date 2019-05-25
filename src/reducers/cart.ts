@@ -64,7 +64,7 @@ const quantityById = (state: { [key: number]: number } = initialState.quantityBy
   }
 }
 
-export const getQuantity = (state: InterfaceStore['cart'], productId: number) => state.quantityById[productId] || 0
+export const getQuantity = (state: InterfaceStore['cart'], productId: number) => state.quantityById[productId] || 0;
 
 export const getAddedIds = (state: InterfaceStore['cart']) => state.addedIds;
 
