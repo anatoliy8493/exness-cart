@@ -6,7 +6,7 @@ interface Props {
   children: ReactNode;
 }
 
-const ProductsList = ({ children }: Props) => (
+const ProductsList: React.FC = ({ children }: Props) => (
   <S.ProductsList>
     {children}
   </S.ProductsList>

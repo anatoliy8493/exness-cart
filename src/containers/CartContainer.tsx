@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { Cart } from '../components';
-import { changeSortOrder } from '../actions/sorts';
+import { resetSort, changeSortOrder } from '../actions/sorts';
 import { InterfaceCartProduct, InterfaceStore } from '../@types';
 import { getTotal, getSortedCartProducts, getCartSort } from '../reducers';
 import {
@@ -15,6 +15,7 @@ import {
 interface Props {
   total: number | string;
   products: InterfaceCartProduct[];
+  resetSort: (name: string) => void;
   removeFromCart: (arg: number) => void;
   changeSortOrder: (column: string) => void;
   incrementCartItemQuantity: (arg: number) => void;
@@ -31,6 +32,7 @@ const mapStateToProps = (state: InterfaceStore) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
+  resetSort: (name: string) => dispatch(resetSort(name)),
   removeFromCart: (productId: number) => dispatch(removeFromCart(productId)),
   changeSortOrder: (column: string) => dispatch(changeSortOrder('cart', column)),
   incrementCartItemQuantity: (productId: number) => dispatch(incrementCartItemQuantity(productId)),

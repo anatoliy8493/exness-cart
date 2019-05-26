@@ -1,7 +1,7 @@
 import { each, omit, filter, union, clone } from 'lodash';
 
 import * as types from '../constants';
-import { InterfaceStore } from  '../@types';
+import { InterfaceCartState } from  '../@types';
 
 type Action = {
   type: string;
@@ -64,11 +64,11 @@ const quantityById = (state: { [key: number]: number } = initialState.quantityBy
   }
 }
 
-export const getQuantity = (state: InterfaceStore['cart'], productId: number) => state.quantityById[productId] || 0;
+export const getQuantity = (state: InterfaceCartState, productId: number) => state.quantityById[productId] || 0;
 
-export const getAddedIds = (state: InterfaceStore['cart']) => state.addedIds;
+export const getAddedIds = (state: InterfaceCartState) => state.addedIds;
 
-const cart = (state: InterfaceStore['cart'] = initialState, action: Action) => {
+const cart = (state: InterfaceCartState = initialState, action: Action) => {
   switch (action.type) {
     default: return {
       addedIds: addedIds(state.addedIds, action),

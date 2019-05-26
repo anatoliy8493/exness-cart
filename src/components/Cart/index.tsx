@@ -1,5 +1,5 @@
 import React from 'react';
-import { map, isEmpty } from 'lodash';
+import { size, map, isEmpty } from 'lodash';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import * as S from './styles';
@@ -11,6 +11,7 @@ import { CartIcon, SortIcon, ArrowDownwardIcon, ArrowUpwardIcon } from '../icons
 interface Props {
   total: number | string;
   products: InterfaceCartProduct[];
+  resetSort: (name: string) => void;
   removeFromCart: (arg: number) => void;
   changeSortOrder: (column: string) => void;
   incrementCartItemQuantity: (arg: number) => void;
@@ -41,22 +42,47 @@ export default class Cart extends React.PureComponent<Props> {
     }
   }
 
-  render() {
+  private onDecrementButtonClick = (id: number, isLastItem: boolean, isLastProduct: boolean) => {
+    const { resetSort, removeFromCart, decrementCartItemQuantity } = this.props;
+
+    if (isLastItem) {
+      removeFromCart(id);
+
+      if (isLastProduct) {
+        resetSort('cart');
+      }
+    } else {
+      decrementCartItemQuantity(id);
+    }
+  }
+
+  private onRemoveButtonClick = (id: number, isLastProduct: boolean) => {
+    const { resetSort, removeFromCart } = this.props;
+
+    if (isLastProduct) {
+      removeFromCart(id);
+      resetSort('cart');
+    } else {
+      removeFromCart(id);
+    }
+  }
+
+  public render() {
+    const { onRemoveButtonClick, onDecrementButtonClick } = this;
     const {
       sort,
       total,
       products,
-      removeFromCart,
       changeSortOrder,
       incrementCartItemQuantity,
-      decrementCartItemQuantity,
     } = this.props;
 
+    const isLastProduct: boolean = size(products) === 1;
     const mappedTableHeaderList = map(TABLE_HEADER_LIST, item => {
       if (item.name === sort.column) return { ...item, ...sort };
 
       return item;
-    })
+    });
 
     const nodes = !isEmpty(products) ? (
       <div>
@@ -71,9 +97,8 @@ export default class Cart extends React.PureComponent<Props> {
           ))}
         </S.TRow>
         <TransitionGroup className="table">
-          {map(products, ({ id, title, price, quantity }: InterfaceCartProduct) => {
-            const isLastItem = quantity <= 1;
-            const clickHandler = isLastItem ? removeFromCart : decrementCartItemQuantity;
+          {map(products, ({ id, title, price, quantity }) => {
+            const isLastItem: boolean = quantity <= 1;
 
             return (
               <CSSTransition
@@ -85,12 +110,12 @@ export default class Cart extends React.PureComponent<Props> {
                   <S.TCell>{title}</S.TCell>
                   <S.TCell>{price}</S.TCell>
                   <S.TCell>
-                    <S.DecrementButton onClick={() => clickHandler(id)}>-</S.DecrementButton>
+                    <S.DecrementButton onClick={() => onDecrementButtonClick(id, isLastItem, isLastProduct)}>-</S.DecrementButton>
                     <Caption13>{quantity}</Caption13>
                     <S.IncrementButton onClick={() => incrementCartItemQuantity(id)}>+</S.IncrementButton>
                   </S.TCell>
                   <S.TCell>
-                    <S.CartIconWrapper onClick={() => removeFromCart(id)}>
+                    <S.CartIconWrapper onClick={() => onRemoveButtonClick(id, isLastProduct)}>
                       <CartIcon style={{ width: '16px', height: '16px', color: BLACK }} />
                     </S.CartIconWrapper>
                   </S.TCell>

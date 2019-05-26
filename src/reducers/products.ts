@@ -2,7 +2,7 @@ import { map, reduce } from 'lodash';
 import { combineReducers } from 'redux';
 
 import { ASYNC_GET_PRODUCTS_SUCCESS } from '../constants';
-import { InterfaceProduct, InterfaceStore } from  '../@types';
+import { InterfaceProduct, InterfaceProductsState } from  '../@types';
 
 type Action = {
   type: string;
@@ -43,7 +43,7 @@ export default combineReducers({
   visibleIds,
 })
 
-export const getProduct = (state: InterfaceStore['products'], id: number) => state.byId[id];
+export const getProduct = (state: InterfaceProductsState, id: number) => state.byId[id];
 
-export const getVisibleProducts = (state: InterfaceStore['products']) =>
+export const getVisibleProducts = (state: InterfaceProductsState) =>
   map(state.visibleIds, (id: number) => getProduct(state, id));

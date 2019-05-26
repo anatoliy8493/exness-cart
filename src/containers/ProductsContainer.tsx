@@ -21,11 +21,11 @@ interface DispatchedProps {
 }
 
 class ProductsContainer extends React.PureComponent<OwnProps & DispatchedProps> {
-  componentDidMount() {
+  public componentDidMount() {
     this.props.asyncGetProducts();
   }
 
-  render() {
+  public render() {
     const { products, addToCart, multipleAddToCart } = this.props;
 
     const productsIdsList: number[] = map(products, (product: InterfaceProduct) => product.id);

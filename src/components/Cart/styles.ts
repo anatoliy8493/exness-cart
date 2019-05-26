@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
 import { hexToRgb } from '../../utils';
-import { row, flexAlign, round } from '../../styles/mixins';
 import { BLACK, LOCHMARA } from '../../styles/colors';
+import { row, flexAlign, round } from '../../styles/mixins';
 
 const buttonCss = css`
   ${round('24px')}
@@ -59,8 +59,8 @@ export const TCell = styled.div`
 
   ${(props: { header?: boolean }) => props.header && `
     &:hover {
-      cursor: pointer;
       background-color: ${hexToRgb(LOCHMARA, '.32')};
+      cursor: pointer;
     }
   `}
 `;
@@ -94,7 +94,7 @@ export const CartIconWrapper = styled.div`
   transition: background-color .2s;
 
   &:hover {
-    cursor: pointer;
     background-color: ${hexToRgb(LOCHMARA, '.12')};
+    cursor: pointer;
   }
 `;

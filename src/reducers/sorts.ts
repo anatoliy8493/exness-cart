@@ -1,5 +1,5 @@
 import * as types from '../constants';
-import { InterfaceStore } from '../@types';
+import { InterfaceSortsState } from '../@types';
 
 type Action = {
   type: string;
@@ -10,14 +10,14 @@ type Action = {
   }
 }
 
-const initialState = {
+const initialState: InterfaceSortsState = {
   cart: {
     column: null,
     sortOrder: null,
   },
-}
+};
 
-const sorts = (state: InterfaceStore['sorts'] = initialState, action: Action) => {
+const sorts = (state: InterfaceSortsState = initialState, action: Action) => {
   switch (action.type) {
     case types.CHANGE_SORT_ORDER: {
       const { payload: { name, column } } = action;
@@ -29,10 +29,6 @@ const sorts = (state: InterfaceStore['sorts'] = initialState, action: Action) =>
       let newSortOrder: string;
 
       switch (state[name].sortOrder) {
-        case 'ascending':
-          newSortOrder = 'descending';
-          break;
-
         case 'descending':
           newSortOrder = 'ascending';
           break;
@@ -45,10 +41,16 @@ const sorts = (state: InterfaceStore['sorts'] = initialState, action: Action) =>
       return { ...state, [name]: { column, sortOrder: newSortOrder } };
     }
 
+    case types.RESET_SORT: {
+      const { payload: { name } } = action;
+
+      return { ...state, [name]: initialState[name] };
+    }
+
     default: return state;
   }
-}
+};
 
-export const getSorts = (state: InterfaceStore['sorts'], name: string) => state[name];
+export const getSorts = (state: InterfaceSortsState, name: string) => state[name];
 
 export default sorts;
