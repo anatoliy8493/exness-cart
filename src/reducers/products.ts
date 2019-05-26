@@ -1,7 +1,8 @@
+import { map, reduce } from 'lodash';
 import { combineReducers } from 'redux';
 
-import { InterfaceProduct } from  '../@types';
-import { ASYNC_GET_PRODUCTS_SUCCESS, ADD_TO_CART } from '../constants';
+import { ASYNC_GET_PRODUCTS_SUCCESS } from '../constants';
+import { InterfaceProduct, InterfaceStore } from  '../@types';
 
 type Action = {
   type: string;
@@ -9,38 +10,29 @@ type Action = {
   products: InterfaceProduct[];
 }
 
-const products = (state: any, action: Action) => {
-  switch (action.type) {
-    case ADD_TO_CART: return { ...state, quantity: state.quantity - 1 };
-
-    default: return state;
-  }
+type State = {
+  [key: number]: InterfaceProduct;
 }
 
-const byId = (state: any = {}, action: Action) => {
+const byId = (state: State = {}, action: Action) => {
   switch (action.type) {
     case ASYNC_GET_PRODUCTS_SUCCESS:
       return {
         ...state,
-        ...action.products.reduce((obj: any, product: InterfaceProduct) => {
+        ...reduce(action.products, (obj: State, product: InterfaceProduct) => {
           obj[product.id] = product;
 
           return obj;
         }, {})
       };
 
-    default:
-      const { productId } = action;
-
-      if (productId) return { ...state, [productId]: products(state[productId], action) };
-
-      return state;
+    default: return state;
   }
 }
 
-const visibleIds = (state = [], action: any) => {
+const visibleIds = (state = [], action: Action) => {
   switch (action.type) {
-    case ASYNC_GET_PRODUCTS_SUCCESS: return action.products.map((product: InterfaceProduct) => product.id);
+    case ASYNC_GET_PRODUCTS_SUCCESS: return map(action.products, (product: InterfaceProduct) => product.id);
 
     default: return state;
   }
@@ -51,6 +43,7 @@ export default combineReducers({
   visibleIds,
 })
 
-export const getProduct = (state: any, id: number) => state.byId[id];
+export const getProduct = (state: InterfaceStore['products'], id: number) => state.byId[id];
 
-export const getVisibleProducts = (state: any) => state.visibleIds.map((id: number) => getProduct(state, id));
+export const getVisibleProducts = (state: InterfaceStore['products']) =>
+  map(state.visibleIds, (id: number) => getProduct(state, id));

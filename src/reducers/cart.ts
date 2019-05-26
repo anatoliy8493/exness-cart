@@ -14,7 +14,7 @@ const initialState = {
   quantityById: {},
 }
 
-const addedIds = (state: number[] = initialState.addedIds, action: any) => {
+const addedIds = (state: number[] = initialState.addedIds, action: Action) => {
   switch (action.type) {
     case types.INCREMENT_CART_ITEM_QUANTITY:
     case types.ADD_TO_CART: {

@@ -34,7 +34,7 @@ class ProductsContainer extends React.PureComponent<OwnProps & DispatchedProps> 
     return (
       <React.Fragment>
         <ProductsList>
-          {products.map((product: InterfaceProduct) =>
+          {map(products, (product: InterfaceProduct) =>
             <ProductItem
               {...product}
               key={product.id}
