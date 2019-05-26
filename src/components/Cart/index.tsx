@@ -35,8 +35,8 @@ const TABLE_HEADER_LIST: TableHeaderItem[] = [
 export default class Cart extends React.PureComponent<Props> {
   private static getSortIcon(sortOrder: string | null | undefined) {
     switch(sortOrder) {
-      case 'ascending': return <ArrowUpwardIcon style={{ width: 10, height: 12, color: BLACK }} />;
-      case 'descending': return <ArrowDownwardIcon style={{ width: 10, height: 12, color: BLACK }} />;
+      case 'descending': return <ArrowUpwardIcon style={{ width: 10, height: 12, color: BLACK }} />;
+      case 'ascending': return <ArrowDownwardIcon style={{ width: 10, height: 12, color: BLACK }} />;
 
       default: return <SortIcon style={{ width: 10, height: 12, color: BLACK }} />;
     }
