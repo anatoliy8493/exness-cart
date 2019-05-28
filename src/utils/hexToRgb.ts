@@ -1,6 +1,6 @@
 import { WHITE } from '../styles/colors';
 
-const hexToRgb = (hex = WHITE, alpha?: string): string => {
+const hexToRgb = (hex: string = WHITE, alpha?: string): string => {
   const result: RegExpExecArray | null = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
   if (!result) return 'rgb(255, 255, 255)';

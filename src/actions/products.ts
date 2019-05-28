@@ -1,4 +1,4 @@
-import { InterfaceProduct } from '../@types';
+import { ProductInterface } from '../@types';
 import * as types from '../constants';
 
 export const asyncGetProducts = () => ({
@@ -10,7 +10,7 @@ export const asyncGetProductsError = (error: any) => ({
   error,
 });
 
-export const asyncGetProductsSuccess = (products: InterfaceProduct[]) => ({
+export const asyncGetProductsSuccess = (products: ProductInterface[]) => ({
   type: types.ASYNC_GET_PRODUCTS_SUCCESS,
   products,
 });

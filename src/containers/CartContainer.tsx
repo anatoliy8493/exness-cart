@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { Cart } from '../components';
 import { resetSort, changeSortOrder } from '../actions/sorts';
-import { InterfaceCartProduct, InterfaceStore } from '../@types';
+import { CartProductInterface, InterfaceStore } from '../@types';
 import { getTotal, getSortedCartProducts, getCartSort } from '../reducers';
 import {
   removeFromCart,
@@ -14,7 +14,7 @@ import {
 
 interface Props {
   total: number | string;
-  products: InterfaceCartProduct[];
+  products: CartProductInterface[];
   resetSort: (name: string) => void;
   removeFromCart: (arg: number) => void;
   changeSortOrder: (column: string) => void;

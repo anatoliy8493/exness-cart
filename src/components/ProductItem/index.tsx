@@ -3,9 +3,9 @@ import React from 'react';
 import { Button } from '../';
 import * as S from './styles';
 
-import { InterfaceProduct } from '../../@types';
+import { ProductInterface } from '../../@types';
 
-interface Props extends InterfaceProduct {
+interface Props extends ProductInterface {
   onAddToCartClick: () => void;
 }
 

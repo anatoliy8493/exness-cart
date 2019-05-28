@@ -4,13 +4,13 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import * as S from './styles';
 import { BLACK } from '../../styles/colors';
-import { InterfaceCartProduct } from '../../@types';
+import { CartProductInterface } from '../../@types';
 import { Caption13 } from '../../styles/primitives';
 import { CartIcon, SortIcon, ArrowDownwardIcon, ArrowUpwardIcon } from '../icons';
 
 interface Props {
   total: number | string;
-  products: InterfaceCartProduct[];
+  products: CartProductInterface[];
   resetSort: (name: string) => void;
   removeFromCart: (arg: number) => void;
   changeSortOrder: (column: string) => void;
@@ -32,13 +32,19 @@ const TABLE_HEADER_LIST: TableHeaderItem[] = [
   { id: 3, name: 'quantity', innerText: 'Quantity' },
 ];
 
+const ICONS_DIMENTIONS = {
+  width: 10,
+  height: 12,
+  color: BLACK,
+}
+
 export default class Cart extends React.PureComponent<Props> {
   private static getSortIcon(sortOrder: string | null | undefined) {
     switch(sortOrder) {
-      case 'descending': return <ArrowUpwardIcon style={{ width: 10, height: 12, color: BLACK }} />;
-      case 'ascending': return <ArrowDownwardIcon style={{ width: 10, height: 12, color: BLACK }} />;
+      case 'descending': return <ArrowUpwardIcon style={{ ...ICONS_DIMENTIONS }} />;
+      case 'ascending': return <ArrowDownwardIcon style={{ ...ICONS_DIMENTIONS }} />;
 
-      default: return <SortIcon style={{ width: 10, height: 12, color: BLACK }} />;
+      default: return <SortIcon style={{ ...ICONS_DIMENTIONS }} />;
     }
   }
 
@@ -77,6 +83,8 @@ export default class Cart extends React.PureComponent<Props> {
       incrementCartItemQuantity,
     } = this.props;
 
+    if (isEmpty(products)) return <div>Cart is empty</div>;
+
     const isLastProduct: boolean = size(products) === 1;
     const mappedTableHeaderList = map(TABLE_HEADER_LIST, item => {
       if (item.name === sort.column) return { ...item, ...sort };
@@ -84,8 +92,8 @@ export default class Cart extends React.PureComponent<Props> {
       return item;
     });
 
-    const nodes = !isEmpty(products) ? (
-      <div>
+    return (
+      <>
         <S.TRow header>
           {map(mappedTableHeaderList, ({ id, name, innerText, sortOrder }) => (
             <S.TCell onClick={() => changeSortOrder(name)} key={id} header>
@@ -124,16 +132,8 @@ export default class Cart extends React.PureComponent<Props> {
             );
           })}
         </TransitionGroup>
-      </div>
-    ) : (
-      <div>Cart is empty</div>
-    )
-
-    return (
-      <div>
-        <div>{nodes}</div>
         <S.Total>Total: {total} ₽</S.Total>
-      </div>
+      </>
     )
   }
 }

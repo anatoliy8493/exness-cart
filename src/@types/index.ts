@@ -1,15 +1,15 @@
-export interface InterfaceProduct {
+export interface ProductInterface {
   id: number
   title: string;
   price: number;
 }
 
-export interface InterfaceCartProduct extends InterfaceProduct {
+export interface CartProductInterface extends ProductInterface {
   quantity: number;
 }
 
-export interface InterfaceProductsState {
-  byId: { [key: number]: InterfaceProduct };
+export interface ProductInterfacesState {
+  byId: { [key: number]: ProductInterface };
   visibleIds: number[];
 }
 
@@ -28,5 +28,5 @@ export interface InterfaceSortsState {
 export interface InterfaceStore {
   cart: InterfaceCartState;
   sorts: InterfaceSortsState;
-  products: InterfaceProductsState;
+  products: ProductInterfacesState;
 }

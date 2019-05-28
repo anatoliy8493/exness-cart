@@ -1,17 +1,17 @@
 import React from 'react';
-import { get, map } from 'lodash';
+import { map } from 'lodash';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { randomIntFromInterval } from '../utils';
 import { asyncGetProducts } from '../actions/products';
 import { getVisibleProducts } from '../reducers/products';
-import { InterfaceProduct, InterfaceStore } from '../@types';
+import { ProductInterface, InterfaceStore } from '../@types';
 import { addToCart, multipleAddToCart } from '../actions/cart';
 import { Button, ProductItem, ProductsList } from '../components';
 
 interface OwnProps {
-  products: InterfaceProduct[];
+  products: ProductInterface[];
   addToCart: (arg: number) => void;
   multipleAddToCart: (arg: number[]) => void;
 }
@@ -27,14 +27,13 @@ class ProductsContainer extends React.PureComponent<OwnProps & DispatchedProps> 
 
   public render() {
     const { products, addToCart, multipleAddToCart } = this.props;
-
-    const productsIdsList: number[] = map(products, (product: InterfaceProduct) => product.id);
-    const randomProductId: number = get(products[randomIntFromInterval(0, products.length - 1)], 'id');
+    const productsIdsList: number[] = map(products, (product: ProductInterface) => product.id);
+    const { id: randomProductId } = products[randomIntFromInterval(0, products.length - 1)];
 
     return (
       <React.Fragment>
         <ProductsList>
-          {map(products, (product: InterfaceProduct) =>
+          {map(products, (product: ProductInterface) =>
             <ProductItem
               {...product}
               key={product.id}

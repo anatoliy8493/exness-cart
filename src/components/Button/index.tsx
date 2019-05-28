@@ -20,10 +20,8 @@ const Button = ({
   disabled = false,
 }: Props) => (
   <S.Wrapper onClick={onClick} type={type} theme={theme} disabled={disabled}>
-    <React.Fragment>
-      {!disabled && <Ink opacity={0.12} />}
-      {children}
-    </React.Fragment>
+    {!disabled && <Ink opacity={0.12} />}
+    {children}
   </S.Wrapper>
 );
 
