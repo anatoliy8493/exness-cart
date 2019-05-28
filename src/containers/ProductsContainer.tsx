@@ -1,6 +1,6 @@
 import React from 'react';
-import { map } from 'lodash';
 import { Dispatch } from 'redux';
+import { get, map } from 'lodash';
 import { connect } from 'react-redux';
 
 import { randomIntFromInterval } from '../utils';
@@ -28,7 +28,7 @@ class ProductsContainer extends React.PureComponent<OwnProps & DispatchedProps> 
   public render() {
     const { products, addToCart, multipleAddToCart } = this.props;
     const productsIdsList: number[] = map(products, (product: ProductInterface) => product.id);
-    const { id: randomProductId } = products[randomIntFromInterval(0, products.length - 1)];
+    const randomProductId = get(products[randomIntFromInterval(0, products.length - 1)], 'id');
 
     return (
       <React.Fragment>
