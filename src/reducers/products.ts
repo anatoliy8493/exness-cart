@@ -1,25 +1,16 @@
 import { map, reduce } from 'lodash';
 import { combineReducers } from 'redux';
 
+import { IProduct, IProductsStore } from  '../@types';
+import { IProductsAction } from '../actions/products';
 import { ASYNC_GET_PRODUCTS_SUCCESS } from '../constants';
-import { ProductInterface, ProductInterfacesState } from  '../@types';
 
-type Action = {
-  type: string;
-  productId?: number;
-  products: ProductInterface[];
-}
-
-type State = {
-  [key: number]: ProductInterface;
-}
-
-const byId = (state: State = {}, action: Action) => {
+const byId = (state: IProductsStore['byId'] = {}, action: IProductsAction) => {
   switch (action.type) {
     case ASYNC_GET_PRODUCTS_SUCCESS:
       return {
         ...state,
-        ...reduce(action.products, (obj: State, product: ProductInterface) => {
+        ...reduce(action.products, (obj: IProductsStore['byId'], product: IProduct) => {
           obj[product.id] = product;
 
           return obj;
@@ -30,9 +21,9 @@ const byId = (state: State = {}, action: Action) => {
   }
 }
 
-const visibleIds = (state = [], action: Action) => {
+const visibleIds = (state = [], action: IProductsAction) => {
   switch (action.type) {
-    case ASYNC_GET_PRODUCTS_SUCCESS: return map(action.products, (product: ProductInterface) => product.id);
+    case ASYNC_GET_PRODUCTS_SUCCESS: return map(action.products, (product: IProduct) => product.id);
 
     default: return state;
   }
@@ -43,7 +34,7 @@ export default combineReducers({
   visibleIds,
 })
 
-export const getProduct = (state: ProductInterfacesState, id: number) => state.byId[id];
+export const getProduct = (state: IProductsStore, id: number) => state.byId[id];
 
-export const getVisibleProducts = (state: ProductInterfacesState) =>
+export const getVisibleProducts = (state: IProductsStore) =>
   map(state.visibleIds, (id: number) => getProduct(state, id));

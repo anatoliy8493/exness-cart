@@ -1,20 +1,16 @@
 import { each, omit, filter, union, clone } from 'lodash';
 
 import * as types from '../constants';
-import { InterfaceCartState } from  '../@types';
+import { ICartStore } from  '../@types';
+import { CartActionsTypes } from '../actions/cart';
+import { ProductIdType } from '../actions/products';
 
-type Action = {
-  type: string;
-  productId: number;
-  productsIds?: number[];
-}
-
-const initialState = {
+const initialState: ICartStore = {
   addedIds: [],
   quantityById: {},
 }
 
-const addedIds = (state: number[] = initialState.addedIds, action: Action) => {
+const addedIds = (state: ICartStore['addedIds'] = initialState.addedIds, action: CartActionsTypes) => {
   switch (action.type) {
     case types.INCREMENT_CART_ITEM_QUANTITY:
     case types.ADD_TO_CART: {
@@ -31,7 +27,7 @@ const addedIds = (state: number[] = initialState.addedIds, action: Action) => {
   }
 }
 
-const quantityById = (state: { [key: number]: number } = initialState.quantityById, action: Action) => {
+const quantityById = (state: ICartStore['quantityById'] = initialState.quantityById, action: CartActionsTypes) => {
   switch (action.type) {
     case types.INCREMENT_CART_ITEM_QUANTITY:
     case types.ADD_TO_CART: {
@@ -53,7 +49,7 @@ const quantityById = (state: { [key: number]: number } = initialState.quantityBy
 
       const clonedState = clone(state);
 
-      each(productsIds, (productId: number) => {
+      each(productsIds, (productId: ProductIdType) => {
         clonedState[productId] = (clonedState[productId] || 0) + 1;
       });
 
@@ -64,11 +60,11 @@ const quantityById = (state: { [key: number]: number } = initialState.quantityBy
   }
 }
 
-export const getQuantity = (state: InterfaceCartState, productId: number) => state.quantityById[productId] || 0;
+export const getQuantity = (state: ICartStore, productId: ProductIdType) => state.quantityById[productId] || 0;
 
-export const getAddedIds = (state: InterfaceCartState) => state.addedIds;
+export const getAddedIds = (state: ICartStore) => state.addedIds;
 
-const cart = (state: InterfaceCartState = initialState, action: Action) => {
+const cart = (state: ICartStore = initialState, action: CartActionsTypes) => {
   switch (action.type) {
     default: return {
       addedIds: addedIds(state.addedIds, action),

@@ -1,7 +1,7 @@
 import { Dispatch, Middleware } from 'redux';
-import { InterfaceStore } from '../@types';
+import { IStore } from '../@types';
 
-const localStorageMiddleware: Middleware = ({ getState }: { getState: () => InterfaceStore }) => {
+const localStorageMiddleware: Middleware = ({ getState }: { getState: () => IStore }) => {
   return (next: Dispatch) => action => {
     const result = next(action);
 

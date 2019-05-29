@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 
 import * as S from './styles';
 
-interface Props {
+interface IButtonProps {
   type?: 'button' | 'reset' | 'submit';
   theme?: string;
   disabled?: boolean;
@@ -18,7 +18,7 @@ const Button = ({
   type = 'button',
   onClick = noop,
   disabled = false,
-}: Props) => (
+}: IButtonProps) => (
   <S.Wrapper onClick={onClick} type={type} theme={theme} disabled={disabled}>
     {!disabled && <Ink opacity={0.12} />}
     {children}

@@ -1,6 +1,8 @@
 const reHydrateStore = () => {
-  if (window.localStorage.getItem('store')) {
-    return JSON.parse(window.localStorage.getItem('store') || '');
+  const storeFromStorage = window.localStorage.getItem('store');
+
+  if (storeFromStorage) {
+    return JSON.parse(storeFromStorage || '');
   }
 }
 

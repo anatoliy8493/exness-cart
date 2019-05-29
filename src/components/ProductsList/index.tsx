@@ -2,11 +2,11 @@ import React, { ReactNode } from 'react';
 
 import * as S from './styles';
 
-interface Props {
+interface IProductsListProps {
   children: ReactNode;
 }
 
-const ProductsList: React.FC = ({ children }: Props) => (
+const ProductsList: React.FC = ({ children }: IProductsListProps) => (
   <S.ProductsList>
     {children}
   </S.ProductsList>

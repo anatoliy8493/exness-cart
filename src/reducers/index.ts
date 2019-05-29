@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { map, sortBy, reduce } from 'lodash';
 
 import cart, * as fromCart from './cart';
-import { InterfaceStore } from  '../@types';
+import { IStore } from  '../@types';
 import sorts, * as fromSorts from './sorts';
 import products, * as fromProducts from './products';
 
@@ -14,13 +14,13 @@ const rootReducer = combineReducers({
 
 export default rootReducer;
 
-const getAddedIds = (state: InterfaceStore) => fromCart.getAddedIds(state.cart);
-const getQuantity = (state: InterfaceStore, id: number) => fromCart.getQuantity(state.cart, id);
-const getProduct = (state: InterfaceStore, id: number) => fromProducts.getProduct(state.products, id);
+const getAddedIds = (state: IStore) => fromCart.getAddedIds(state.cart);
+const getQuantity = (state: IStore, id: number) => fromCart.getQuantity(state.cart, id);
+const getProduct = (state: IStore, id: number) => fromProducts.getProduct(state.products, id);
 
-export const getCartSort = (state: InterfaceStore) => fromSorts.getSorts(state.sorts, 'cart');
+export const getCartSort = (state: IStore) => fromSorts.getSorts(state.sorts, 'cart');
 
-export const getCartProducts = (state: InterfaceStore) => {
+export const getCartProducts = (state: IStore) => {
   return map(getAddedIds(state), (id: number) => {
     return {
       ...getProduct(state, id),
@@ -29,7 +29,7 @@ export const getCartProducts = (state: InterfaceStore) => {
   });
 };
 
-export const getSortedCartProducts = (state: InterfaceStore) => {
+export const getSortedCartProducts = (state: IStore) => {
   const sort = getCartSort(state);
   const products = getCartProducts(state);
   const sortedProducts = sortBy(products, [`${sort.column}`]);
@@ -39,7 +39,7 @@ export const getSortedCartProducts = (state: InterfaceStore) => {
   return sortedProducts;
 };
 
-export const getTotal = (state: InterfaceStore) => {
+export const getTotal = (state: IStore) => {
   return reduce(getAddedIds(state), (total: number, id: number) =>
     total + getProduct(state, id).price * getQuantity(state, id),
     0,

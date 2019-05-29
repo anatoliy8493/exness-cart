@@ -3,13 +3,13 @@ import React from 'react';
 import { Button } from '../';
 import * as S from './styles';
 
-import { ProductInterface } from '../../@types';
+import { IProduct } from '../../@types';
 
-interface Props extends ProductInterface {
+interface IProductItemProps extends IProduct {
   onAddToCartClick: () => void;
 }
 
-const ProductItem = ({ title, price, onAddToCartClick }: Props) => {
+const ProductItem = ({ title, price, onAddToCartClick }: IProductItemProps) => {
   return (
     <S.Wrapper>
       <S.Header />

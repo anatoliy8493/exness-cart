@@ -4,29 +4,20 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import * as S from './styles';
 import { BLACK } from '../../styles/colors';
-import { CartProductInterface } from '../../@types';
 import { Caption13 } from '../../styles/primitives';
+import { ICartContainerProps } from '../../containers/CartContainer';
 import { CartIcon, SortIcon, ArrowDownwardIcon, ArrowUpwardIcon } from '../icons';
 
-interface Props {
-  total: number | string;
-  products: CartProductInterface[];
-  resetSort: (name: string) => void;
-  removeFromCart: (arg: number) => void;
-  changeSortOrder: (column: string) => void;
-  incrementCartItemQuantity: (arg: number) => void;
-  decrementCartItemQuantity: (arg: number) => void;
-  sort: { name: string, sortOrder: string, column: string };
-}
+interface ICartProps extends ICartContainerProps {}
 
-interface TableHeaderItem {
+interface ITableHeaderItem {
   id: number;
   name: string;
   innerText: string;
   sortOrder?: string | null | undefined;
 }
 
-const TABLE_HEADER_LIST: TableHeaderItem[] = [
+const TABLE_HEADER_LIST: ITableHeaderItem[] = [
   { id: 1, name: 'title', innerText: 'Name' },
   { id: 2, name: 'price', innerText: 'Price' },
   { id: 3, name: 'quantity', innerText: 'Quantity' },
@@ -38,7 +29,7 @@ const ICONS_DIMENTIONS = {
   color: BLACK,
 }
 
-export default class Cart extends React.PureComponent<Props> {
+export default class Cart extends React.PureComponent<ICartProps> {
   private static getSortIcon(sortOrder: string | null | undefined) {
     switch(sortOrder) {
       case 'descending': return <ArrowUpwardIcon style={{ ...ICONS_DIMENTIONS }} />;
@@ -96,7 +87,7 @@ export default class Cart extends React.PureComponent<Props> {
       <>
         <S.TRow header>
           {map(mappedTableHeaderList, ({ id, name, innerText, sortOrder }) => (
-            <S.TCell onClick={() => changeSortOrder(name)} key={id} header>
+            <S.TCell onClick={() => changeSortOrder('cart', name)} key={id} header>
               <S.TCellInner>
                 {innerText}
                 {Cart.getSortIcon(sortOrder)}

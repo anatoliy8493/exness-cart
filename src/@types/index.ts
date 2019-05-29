@@ -1,32 +1,32 @@
-export interface ProductInterface {
+export interface IProduct {
   id: number
   title: string;
   price: number;
 }
 
-export interface CartProductInterface extends ProductInterface {
+export interface ICartProduct extends IProduct {
   quantity: number;
 }
 
-export interface ProductInterfacesState {
-  byId: { [key: number]: ProductInterface };
+export interface IProductsStore {
+  byId: { [key: number]: IProduct };
   visibleIds: number[];
 }
 
-export interface InterfaceCartState {
+export interface ICartStore {
   addedIds: number[];
   quantityById: { [key: number]: number };
 }
 
-export interface InterfaceSortsState {
+export interface ISortsStore {
   [key: string]: {
     column: string | null;
     sortOrder: string | null;
   };
 }
 
-export interface InterfaceStore {
-  cart: InterfaceCartState;
-  sorts: InterfaceSortsState;
-  products: ProductInterfacesState;
+export interface IStore {
+  cart: ICartStore;
+  sorts: ISortsStore;
+  products: IProductsStore;
 }

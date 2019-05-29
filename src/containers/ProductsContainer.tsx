@@ -3,37 +3,39 @@ import { Dispatch } from 'redux';
 import { get, map } from 'lodash';
 import { connect } from 'react-redux';
 
+import { IProduct, IStore } from '../@types';
 import { randomIntFromInterval } from '../utils';
-import { asyncGetProducts } from '../actions/products';
 import { getVisibleProducts } from '../reducers/products';
-import { ProductInterface, InterfaceStore } from '../@types';
-import { addToCart, multipleAddToCart } from '../actions/cart';
 import { Button, ProductItem, ProductsList } from '../components';
+import { asyncGetProducts, IAsyncGetProducts, ProductIdType } from '../actions/products';
+import { addToCart, IAddToCart, multipleAddToCart, IMultipleAddToCart } from '../actions/cart';
 
-interface OwnProps {
-  products: ProductInterface[];
-  addToCart: (arg: number) => void;
-  multipleAddToCart: (arg: number[]) => void;
+interface IMappedFromStoreProps {
+  products: IProduct[];
 }
 
-interface DispatchedProps {
-  asyncGetProducts: () => void;
+interface IDispatchedProps {
+  addToCart: IAddToCart;
+  asyncGetProducts: IAsyncGetProducts;
+  multipleAddToCart: IMultipleAddToCart;
 }
 
-class ProductsContainer extends React.PureComponent<OwnProps & DispatchedProps> {
+interface IProductsContainerProps extends IMappedFromStoreProps, IDispatchedProps {}
+
+class ProductsContainer extends React.PureComponent<IProductsContainerProps> {
   public componentDidMount() {
     this.props.asyncGetProducts();
   }
 
   public render() {
     const { products, addToCart, multipleAddToCart } = this.props;
-    const productsIdsList: number[] = map(products, (product: ProductInterface) => product.id);
+    const productsIdsList: ProductIdType[] = map(products, (product: IProduct) => product.id);
     const randomProductId = get(products[randomIntFromInterval(0, products.length - 1)], 'id');
 
     return (
       <React.Fragment>
         <ProductsList>
-          {map(products, (product: ProductInterface) =>
+          {map(products, (product: IProduct) =>
             <ProductItem
               {...product}
               key={product.id}
@@ -51,14 +53,14 @@ class ProductsContainer extends React.PureComponent<OwnProps & DispatchedProps> 
   }
 }
 
-const mapStateToProps = (state: InterfaceStore) => ({
+const mapStateToProps = (state: IStore) => ({
   products: getVisibleProducts(state.products),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   asyncGetProducts: () => dispatch(asyncGetProducts()),
-  addToCart: (productId: number) => dispatch(addToCart(productId)),
-  multipleAddToCart: (productsIds: number[]) => dispatch(multipleAddToCart(productsIds)),
+  addToCart: (productId: ProductIdType) => dispatch(addToCart(productId)),
+  multipleAddToCart: (productsIds: ProductIdType[]) => dispatch(multipleAddToCart(productsIds)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);
