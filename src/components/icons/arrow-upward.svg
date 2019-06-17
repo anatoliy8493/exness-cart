@@ -1,0 +1,6 @@
+<svg viewBox="0 0 12 12">
+  <g fill="none" fill-rule="evenodd">
+    <path d="M18 18H-6V-6h24z"/>
+    <path fill="currentColor" d="M0 6l1.058 1.057L5.25 2.872V12h1.5V2.872l4.185 4.193L12 6 6 0z"/>
+  </g>
+</svg>
